@@ -9,6 +9,7 @@ const createCard = (srcCard, titleCard, callback) => {
 
   cardElement.querySelector(".card__image").src = srcCard;
   cardElement.querySelector(".card__title").textContent = titleCard;
+  cardElement.querySelector(".card__image").alt = titleCard;
 
   deleteButton.addEventListener("click", (evt) => {
     callback(evt);
