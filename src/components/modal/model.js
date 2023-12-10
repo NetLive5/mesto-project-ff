@@ -6,17 +6,22 @@ const popup = document.querySelectorAll(".popup");
 const popupClose = document.querySelectorAll(".popup__close");
 
 const modalWindow = (value) => {
-  value.classList.add("popup_is-opened"); // Функция добавления и удаления модального окна при клике
+  value.classList.add("popup_is-opened", "popup_is-animated"); // Функция добавления и удаления модального окна при клике
   const closeHandler = () => {
-    value.classList.remove("popup_is-opened"); // Сохраняем ссылку на функцию-обработчик события
+    value.classList.remove("popup_is-opened", "popup_is-animated"); // Сохраняем ссылку на функцию-обработчик события
     document.removeEventListener("keydown", KeyHandlerEsc); // Удаляем обработчик после закрытия модального окна
   };
 
   for (let closed of popupClose) {
     closed.addEventListener("click", closeHandler); // Добавляем обработчик закрытия для каждой кнопки закрытия
   }
-
-  //value.addEventListener("click", closeHandler); // Добавляем обработчик закрытия для клика по области
+  // Добавляем обработчик закрытия для клика по области
+  value.addEventListener("click", (evt) => {
+    //Проверяем был клик по области
+    if (evt.target === value) {
+      closeHandler();
+    }
+  });
   document.addEventListener("keydown", KeyHandlerEsc); // Добавляем обработчик события Esc при открытии окна
 };
 
@@ -24,7 +29,7 @@ const modalWindow = (value) => {
 const KeyHandlerEsc = (event) => {
   popup.forEach((value) => {
     if (event.key === "Escape" && value.classList.contains("popup_is-opened")) {
-      value.classList.remove("popup_is-opened");
+      value.classList.remove("popup_is-opened", "popup_is-animated");
       document.removeEventListener("keydown", KeyHandlerEsc); // Удаляем обработчик
     }
   });
