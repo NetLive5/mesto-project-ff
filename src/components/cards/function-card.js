@@ -4,7 +4,7 @@ export const cardList = document.querySelector(".places__list");
 const cardTemplate = document.querySelector("#card-template").content;
 
 // @todo: Функция создания карточки
-const createCard = (srcCard, titleCard, removeCard, openImg) => {
+const createCard = (srcCard, titleCard, removeCard, openImg, like) => {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const deleteButton = cardElement.querySelector(".card__delete-button");
   const likeButton = cardElement.querySelector(".card__like-button");

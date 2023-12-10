@@ -6,7 +6,7 @@ const popup = document.querySelectorAll(".popup");
 const popupClose = document.querySelectorAll(".popup__close");
 
 const modalWindow = (value) => {
-  value.classList.add("popup_is-animated"); //Обернул в асинк , для до го что бы класс сначала добавился, а потом открыть модальное окно
+  value.classList.add("popup_is-animated");
   setTimeout(() => {
     value.classList.add("popup_is-opened"); // Функция добавления и удаления модального окна при клике
     const closeHandler = () => {
@@ -27,10 +27,10 @@ const modalWindow = (value) => {
 
     setTimeout(() => {
       value.classList.remove("popup_is-animated");
-    }, 1000); // Задержка удаления класса , что бы анимация успела сыграть
-
-    document.addEventListener("keydown", KeyHandlerEsc); // Добавляем обработчик события Esc при открытии окна
+    }, 1200);
   });
+
+  document.addEventListener("keydown", KeyHandlerEsc); // Добавляем обработчик события Esc при открытии окна
 };
 
 // Обработчик события Esc

@@ -18,11 +18,12 @@ import {
   createCard,
   addCard,
   deleteCard,
+  like,
 } from "./components/cards/function-card.js";
 
 // @todo: Вывести карточки на страницу
 initialCards.forEach(({ link, name }) => {
-  const cardData = createCard(link, name, deleteCard, openImg);
+  const cardData = createCard(link, name, deleteCard, openImg, like);
   addCard(cardData);
 });
 
