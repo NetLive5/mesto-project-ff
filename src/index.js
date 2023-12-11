@@ -29,11 +29,7 @@ initialCards.forEach(({ link, name }) => {
 });
 
 //Модальное окно редактирования профиля
-popupEditProfile.addEventListener(
-  "click",
-  () => openModalWindow(popupEdit),
-  valueEditForm()
-);
+popupEditProfile.addEventListener("click", () => valueEditForm());
 
 //Модальное окно добавления карточки
 popupNewCardOpened.addEventListener("click", () =>

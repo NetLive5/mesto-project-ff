@@ -1,5 +1,5 @@
 // Находим форму
-import { closeModalWindow, popupEdit } from "./model";
+import { closeModalWindow, popupEdit, openModalWindow } from "./model";
 
 const editForm = document.forms["edit-profile"];
 const name = editForm.elements.name;
@@ -15,6 +15,7 @@ const profileDescription = document.querySelector(".profile__description");
 const valueEditForm = () => {
   name.value = profileTitle.textContent;
   description.value = profileDescription.textContent;
+  openModalWindow(popupEdit);
 };
 
 // Обработчик «отправки» формы

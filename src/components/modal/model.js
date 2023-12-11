@@ -23,7 +23,7 @@ const openModalWindow = (value) => {
 const closePopupByClick = (evt) => {
   if (
     evt.target === evt.currentTarget || // Проверяем, был ли клик по области модального окна или по кнопке закрытия
-    evt.target.popupClose
+    evt.target.classList.contains("popup__close")
   ) {
     closeModalWindow(evt.currentTarget);
   }
