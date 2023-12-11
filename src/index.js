@@ -2,18 +2,18 @@ import "./pages/index.css";
 import { initialCards } from "./components/cards/cards";
 import { openImg } from "./components/cards/open-card.js";
 import { submitNewCard, cardForm } from "./components/cards/new-card.js";
+import { openModalWindow } from "./components/modal/model.js";
 import {
   handleFormSubmit,
   editForm,
-  valueEditForm,
+  openEditPopup,
 } from "./components/modal/edit-profile.js";
+
 import {
-  openModalWindow,
-  popupEdit,
   popupNewCard,
   popupEditProfile,
   popupNewCardOpened,
-} from "./components/modal/model.js";
+} from "./components/modal/popap-import.js";
 
 import {
   createCard,
@@ -29,7 +29,7 @@ initialCards.forEach(({ link, name }) => {
 });
 
 //Модальное окно редактирования профиля
-popupEditProfile.addEventListener("click", () => valueEditForm());
+popupEditProfile.addEventListener("click", () => openEditPopup());
 
 //Модальное окно добавления карточки
 popupNewCardOpened.addEventListener("click", () =>

@@ -1,5 +1,6 @@
 // Находим форму
-import { closeModalWindow, popupEdit, openModalWindow } from "./model";
+import { closeModalWindow, openModalWindow } from "./model";
+import { popupEdit } from "../modal/popap-import";
 
 const editForm = document.forms["edit-profile"];
 const name = editForm.elements.name;
@@ -12,7 +13,7 @@ const profileDescription = document.querySelector(".profile__description");
 
 // Берем начальные значения полей формы
 
-const valueEditForm = () => {
+const openEditPopup = () => {
   name.value = profileTitle.textContent;
   description.value = profileDescription.textContent;
   openModalWindow(popupEdit);
@@ -31,4 +32,4 @@ const handleFormSubmit = (evt) => {
   closeModalWindow(popupEdit);
 };
 
-export { handleFormSubmit, editForm, valueEditForm };
+export { handleFormSubmit, editForm, openEditPopup };
