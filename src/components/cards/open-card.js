@@ -1,4 +1,4 @@
-import { modalWindow } from "../modal/model.js";
+import { openModalWindow } from "../modal/model.js";
 
 const popupOpenImg = document.querySelector(".popup_type_image");
 const popupImage = popupOpenImg.querySelector(".popup__image");
@@ -8,7 +8,7 @@ const openImg = (srcCard, titleCard) => {
   popupImage.src = srcCard;
   popupCaption.alt = titleCard;
   popupCaption.textContent = titleCard;
-  modalWindow(popupOpenImg);
+  openModalWindow(popupOpenImg);
 };
 
 export { openImg };

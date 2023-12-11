@@ -1,13 +1,14 @@
 import "./pages/index.css";
 import { initialCards } from "./components/cards/cards";
 import { openImg } from "./components/cards/open-card.js";
-import { newCard, cardForm } from "./components/cards/new-card.js";
+import { submitNewCard, cardForm } from "./components/cards/new-card.js";
 import {
   handleFormSubmit,
-  formElement,
+  editForm,
+  valueEditForm,
 } from "./components/modal/edit-profile.js";
 import {
-  modalWindow,
+  openModalWindow,
   popupEdit,
   popupNewCard,
   popupEditProfile,
@@ -19,7 +20,7 @@ import {
   addCard,
   deleteCard,
   like,
-} from "./components/cards/function-card.js";
+} from "./components/cards/card.js";
 
 // @todo: Вывести карточки на страницу
 initialCards.forEach(({ link, name }) => {
@@ -28,15 +29,21 @@ initialCards.forEach(({ link, name }) => {
 });
 
 //Модальное окно редактирования профиля
-popupEditProfile.addEventListener("click", () => modalWindow(popupEdit));
+popupEditProfile.addEventListener(
+  "click",
+  () => openModalWindow(popupEdit),
+  valueEditForm()
+);
 
 //Модальное окно добавления карточки
-popupNewCardOpened.addEventListener("click", () => modalWindow(popupNewCard));
+popupNewCardOpened.addEventListener("click", () =>
+  openModalWindow(popupNewCard)
+);
 
 //Слушатель для изменения профиля
-formElement.addEventListener("submit", handleFormSubmit);
+editForm.addEventListener("submit", handleFormSubmit);
 
 //Слушатель для добавления новой карточки в список
-cardForm.addEventListener("submit", newCard);
+cardForm.addEventListener("submit", submitNewCard);
 
 //__________________________________________________________________________________________//

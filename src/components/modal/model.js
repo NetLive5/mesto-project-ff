@@ -2,52 +2,48 @@ const popupEdit = document.querySelector(".popup_type_edit");
 const popupNewCard = document.querySelector(".popup_type_new-card");
 const popupEditProfile = document.querySelector(".profile__edit-button");
 const popupNewCardOpened = document.querySelector(".profile__add-button");
-const popup = document.querySelectorAll(".popup");
+//const popups = document.querySelectorAll(".popup");
 const popupClose = document.querySelectorAll(".popup__close");
 
-const modalWindow = (value) => {
-  value.classList.add("popup_is-animated");
-  setTimeout(() => {
-    value.classList.add("popup_is-opened"); // Функция добавления и удаления модального окна при клике
-    const closeHandler = () => {
-      value.classList.remove("popup_is-opened"); // Сохраняем ссылку на функцию-обработчик события
-      document.removeEventListener("keydown", KeyHandlerEsc); // Удаляем обработчик после закрытия модального окна
-    };
-
-    for (let closed of popupClose) {
-      closed.addEventListener("click", closeHandler); // Добавляем обработчик закрытия для каждой кнопки закрытия
-    }
-    // Добавляем обработчик закрытия для клика по области
-    value.addEventListener("click", (evt) => {
-      //Проверяем был клик по области
-      if (evt.target === value) {
-        closeHandler();
-      }
-    });
-
-    setTimeout(() => {
-      value.classList.remove("popup_is-animated");
-    }, 1200);
-  });
-
-  document.addEventListener("keydown", KeyHandlerEsc); // Добавляем обработчик события Esc при открытии окна
+// закрытия модального окна
+const closeModalWindow = (value) => {
+  value.classList.remove("popup_is-opened", "popup_is-animated");
+  document.removeEventListener("keydown", keyHandlerEsc);
+  value.removeEventListener("click", closePopupByClick);
 };
 
-// Обработчик события Esc
-const KeyHandlerEsc = (event) => {
-  popup.forEach((value) => {
-    if (event.key === "Escape" && value.classList.contains("popup_is-opened")) {
-      value.classList.remove("popup_is-opened");
-      document.removeEventListener("keydown", KeyHandlerEsc); // Удаляем обработчик
-    }
-  });
+// открытия модального окна
+const openModalWindow = (value) => {
+  value.classList.add("popup_is-opened", "popup_is-animated"); // Добавляем классы, что бы открыть модальное окно
+  document.addEventListener("keydown", keyHandlerEsc); // Добавляем обработчик события для клавиши Esc
+  value.addEventListener("click", closePopupByClick); // Добавляем обработчик события для клика по области
+};
+
+// модального окна по клику
+const closePopupByClick = (evt) => {
+  if (
+    evt.target === evt.currentTarget || // Проверяем, был ли клик по области модального окна или по кнопке закрытия
+    evt.target.popupClose
+  ) {
+    closeModalWindow(evt.currentTarget);
+  }
+};
+
+// модального окна на Esc
+const keyHandlerEsc = (event) => {
+  if (event.key === "Escape") {
+    closeModalWindow(document.querySelector(".popup_is-opened"));
+  }
 };
 
 export {
-  modalWindow,
+  openModalWindow,
+  closeModalWindow,
   popupEdit,
   popupNewCard,
   popupEditProfile,
   popupNewCardOpened,
   popupClose,
 };
+
+//currentTarget - это свойство объекта события в JavaScript, которое указывает на элемент, на котором был установлен обработчик события.
