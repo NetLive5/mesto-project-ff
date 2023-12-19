@@ -1,4 +1,4 @@
-import { openModalWindow } from "../modal/model.js";
+import { openModalWindow } from "../model/model.js";
 
 const popupOpenImg = document.querySelector(".popup_type_image");
 const popupImage = popupOpenImg.querySelector(".popup__image");

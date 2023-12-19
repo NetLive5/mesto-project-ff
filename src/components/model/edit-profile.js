@@ -1,6 +1,6 @@
 // Находим форму
 import { closeModalWindow, openModalWindow } from "./model";
-import { popupEdit } from "../modal/popap-import";
+import { popupEdit } from "../model/popap-import";
 
 const editForm = document.forms["edit-profile"];
 const name = editForm.elements.name;

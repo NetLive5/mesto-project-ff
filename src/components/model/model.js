@@ -1,8 +1,8 @@
 // закрытия модального окна
 const closeModalWindow = (value) => {
-  value.classList.remove("popup_is-opened", "popup_is-animated");
-  document.removeEventListener("keydown", keyHandlerEsc);
-  value.removeEventListener("click", closePopupByClick);
+  value.classList.remove("popup_is-opened", "popup_is-animated"); // Убираем классы, отвечающие за открытость и анимацию модального окна
+  document.removeEventListener("keydown", keyHandlerEsc); // Удаляем обработчик события для клавиши Esc
+  value.removeEventListener("click", closePopupByClick); // Удаляем обработчик события для клика по области модального окна или кнопке закрытия
 };
 
 // открытия модального окна
@@ -15,15 +15,16 @@ const openModalWindow = (value) => {
 // модального окна по клику
 const closePopupByClick = (evt) => {
   if (
-    evt.target === evt.currentTarget || // Проверяем, был ли клик по области модального окна или по кнопке закрытия
-    evt.target.classList.contains("popup__close")
+    evt.target === evt.currentTarget ||
+    evt.target.classList.contains("popup__close") // Проверяем, был ли клик по области модального окна или по кнопке закрытия
   ) {
-    closeModalWindow(evt.currentTarget);
+    closeModalWindow(evt.currentTarget); // Закрываем модальное окно
   }
 };
 
 // модального окна на Esc
 const keyHandlerEsc = (event) => {
+  // Проверяем, была ли нажата клавиша Esc
   if (event.key === "Escape") {
     closeModalWindow(document.querySelector(".popup_is-opened"));
   }

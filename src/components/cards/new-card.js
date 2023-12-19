@@ -1,8 +1,8 @@
 import { createCard, deleteCard, like } from "./card.js";
-import { closeModalWindow } from "../modal/model.js";
+import { closeModalWindow } from "../model/model.js";
 import { cardList } from "./card.js";
 import { openImg } from "./open-card.js";
-import { popupNewCard } from "../modal/popap-import.js";
+import { popupNewCard } from "../model/popap-import.js";
 
 const cardForm = document.forms["new-place"];
 const newName = cardForm.elements["place-name"];

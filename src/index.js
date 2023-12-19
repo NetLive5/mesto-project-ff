@@ -2,18 +2,18 @@ import "./pages/index.css";
 import { initialCards } from "./components/cards/cards";
 import { openImg } from "./components/cards/open-card.js";
 import { submitNewCard, cardForm } from "./components/cards/new-card.js";
-import { openModalWindow } from "./components/modal/model.js";
+import { openModalWindow } from "./components/model/model.js";
 import {
   handleFormSubmit,
   editForm,
   openEditPopup,
-} from "./components/modal/edit-profile.js";
+} from "./components/model/edit-profile.js";
 
 import {
   popupNewCard,
   popupEditProfile,
   popupNewCardOpened,
-} from "./components/modal/popap-import.js";
+} from "./components/model/popap-import.js";
 
 import {
   createCard,
