@@ -4,7 +4,7 @@ export const cardList = document.querySelector(".places__list");
 const cardTemplate = document.querySelector("#card-template").content;
 
 // @todo: Функция создания карточки
-const createCard = (srcCard, titleCard, removeCard, openImg, like) => {
+const createCard = (srcCard, titleCard, removeCard, openImg) => {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const deleteButton = cardElement.querySelector(".card__delete-button");
   const likeButton = cardElement.querySelector(".card__like-button");
@@ -40,9 +40,8 @@ const deleteCard = (event) => {
   event.target.parentElement.remove();
 };
 
-// @todo: Функция лайка карточки
+// Функция лайка карточки
 const like = (evt) => {
   evt.target.classList.toggle("card__like-button_is-active");
 };
-
 export { createCard, addCard, deleteCard, like };

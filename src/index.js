@@ -1,8 +1,13 @@
 import "./pages/index.css";
-import { initialCards } from "./components/cards/cards";
+import { enableValidation } from "./components/validation/validation.js";
+//import { initialCards } from "./components/cards/cards";
 import { openImg } from "./components/cards/open-card.js";
-import { submitNewCard, cardForm } from "./components/cards/new-card.js";
-import { openModalWindow } from "./components/model/model.js";
+import {
+  submitNewCard,
+  cardForm,
+  openCreateCard,
+} from "./components/cards/new-card.js";
+import { validateConfig } from "./components/validation/validation-config.js";
 import {
   handleFormSubmit,
   editForm,
@@ -10,31 +15,44 @@ import {
 } from "./components/model/edit-profile.js";
 
 import {
-  popupNewCard,
   popupEditProfile,
   popupNewCardOpened,
 } from "./components/model/popap-import.js";
 
-import {
-  createCard,
-  addCard,
-  deleteCard,
-  like,
-} from "./components/cards/card.js";
+import { createCard, addCard, deleteCard } from "./components/cards/card.js";
 
-// @todo: Вывести карточки на страницу
-initialCards.forEach(({ link, name }) => {
-  const cardData = createCard(link, name, deleteCard, openImg, like);
-  addCard(cardData);
-});
+import { getEditProfile } from "./components/fetch/apiEditProfile.js";
+import { getInitialCards } from "./components/fetch/apiCreateCard.js";
+
+// Включение валидации
+enableValidation(validateConfig);
+
+const handleData = ([userData, initialCards]) => {
+  // initialCards содержит массив начальных карточек
+  // userData содержит информацию о пользователе
+
+  // Вывести карточки на страницу
+  initialCards.forEach(({ link, name }) => {
+    const cardData = createCard(link, name, deleteCard, openImg);
+    addCard(cardData);
+  });
+};
+
+// Ошибка при получении данных
+const handleError = (error) => {
+  console.error("Fetch error:", error);
+};
+
+// Запросы на сервер
+Promise.all([getEditProfile(), getInitialCards()])
+  .then(handleData) // Обработка успешного получения данных
+  .catch(handleError); // Обработка ошибки
 
 //Модальное окно редактирования профиля
 popupEditProfile.addEventListener("click", () => openEditPopup());
 
 //Модальное окно добавления карточки
-popupNewCardOpened.addEventListener("click", () =>
-  openModalWindow(popupNewCard)
-);
+popupNewCardOpened.addEventListener("click", () => openCreateCard());
 
 //Слушатель для изменения профиля
 editForm.addEventListener("submit", handleFormSubmit);

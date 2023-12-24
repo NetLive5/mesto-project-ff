@@ -33,3 +33,5 @@ const keyHandlerEsc = (event) => {
 export { openModalWindow, closeModalWindow };
 
 //currentTarget - это свойство объекта события в JavaScript, которое указывает на элемент, на котором был установлен обработчик события.
+//evt.currentTarget — элемент, где сработал обработчик;
+//evt.target — элемент, где возникло событие.
