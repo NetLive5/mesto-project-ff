@@ -33,24 +33,37 @@ export const postCards = (newCard) => {
   });
 };
 
-// Пример функции для добавления лайка
-export const addLike = (id) => {
-  return fetch(`https://nomoreparties.co/v1/cards/likes/${id}`, {
-    method: "PUT",
+export const toggleLike = (cardId, isLiked) => {
+  const method = isLiked ? "DELETE" : "PUT";
+  console.log("Toggle like request:", cardId, method, isLiked);
+  return fetch(
+    `https://nomoreparties.co/v1/wff-cohort-3/cards/likes/${cardId}`,
+    {
+      method,
+      headers: {
+        authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
+      },
+    }
+  ).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  });
+};
+
+export const removeCard = (cardId) => {
+  return fetch(`https://nomoreparties.co/v1/wff-cohort-3/cards/${cardId}`, {
+    method: "DELETE",
     headers: {
       authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
     },
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`Error adding like: Ошибка: ${res.status}`);
-      }
+  }).then((res) => {
+    if (res.ok) {
       return res.json();
-    })
-    .then((result) => {
-      return result;
-    })
-    .catch((error) => {
-      throw new Error(`Error adding like: ${error.message}`);
-    });
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  });
 };

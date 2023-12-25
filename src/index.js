@@ -32,8 +32,17 @@ const handleData = ([userData, initialCards]) => {
   // userData содержит информацию о пользователе
 
   // Вывести карточки на страницу
-  initialCards.forEach(({ link, name }) => {
-    const cardData = createCard(link, name, deleteCard, openImg);
+  initialCards.forEach(({ link, name, likes, _id, owner }) => {
+    const isOwnCard = owner._id == userData;
+    const cardData = createCard(
+      link,
+      name,
+      deleteCard,
+      openImg,
+      likes.length,
+      isOwnCard,
+      _id
+    );
     addCard(cardData);
   });
 };

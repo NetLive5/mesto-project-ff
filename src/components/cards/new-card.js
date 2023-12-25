@@ -21,8 +21,8 @@ const submitNewCard = (evt) => {
   const Name = newName.value; // Сохраняем новые данные из формы , которые ввели
   const Url = newUrl.value;
   postCards({ name: Name, link: Url })
-    .then(({ link, name }) => {
-      const card = createCard(link, name, deleteCard, openImg, like); // для новой карточки создаем переменную и передаем функцию создания карточки
+    .then(({ link, name, _id }) => {
+      const card = createCard(link, name, deleteCard, openImg, 0, true, _id); // для новой карточки создаем переменную и передаем функцию создания карточки
       cardList.prepend(card); //Добавляем карточку в начало списка
       cardForm.reset(); // Очищаем форму после submit
       closeModalWindow(popupNewCard); //Убирает модальное окно удалением класса
@@ -34,3 +34,13 @@ const submitNewCard = (evt) => {
 };
 
 export { submitNewCard, cardForm, openCreateCard };
+
+/*
+link - Url картинки для карточки 
+name - Имя карточки 
+deleteCard - функция удаления карточки 
+openImg - функция открытия карточки
+0 - счетчик лайков карточки с 0 
+true - видимость карточки что бы могли удалять только свои 
+_id - id карточки
+*/
