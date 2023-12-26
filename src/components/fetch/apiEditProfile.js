@@ -50,3 +50,21 @@ export const getEditProfile = () => {
       console.error("Fetch error:", error);
     });
 };
+
+export const patchNewAvatar = (newAvatarUrl) => {
+  return fetch("https://nomoreparties.co/v1/wff-cohort-3/users/me/avatar", {
+    method: "PATCH",
+    headers: {
+      authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      avatar: newAvatarUrl,
+    }),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    throw new Error(`HTTP error! Status: ${res.status}`);
+  });
+};

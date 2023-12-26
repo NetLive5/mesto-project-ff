@@ -18,6 +18,6 @@ const isValidInputCharacters = (inputElement) => {
 // Функция для проверки введенного URL
 const isValidURL = (url) => {
   const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
-  return urlRegex.test(url);
+  return urlRegex.test(decodeURIComponent(url));
 };
 export { isValidURL, isValidInputCharacters, isValidImageURL };

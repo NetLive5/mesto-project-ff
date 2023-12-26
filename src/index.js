@@ -1,6 +1,5 @@
 import "./pages/index.css";
 import { enableValidation } from "./components/validation/validation.js";
-//import { initialCards } from "./components/cards/cards";
 import { openImg } from "./components/cards/open-card.js";
 import {
   submitNewCard,
@@ -23,6 +22,16 @@ import { createCard, addCard, deleteCard } from "./components/cards/card.js";
 
 import { getEditProfile } from "./components/fetch/apiEditProfile.js";
 import { getInitialCards } from "./components/fetch/apiCreateCard.js";
+
+import {
+  popupAvatar,
+  popupAvatarEdit,
+} from "./components/model/popap-import.js";
+import {
+  handleAvatarChange,
+  avatarForm,
+  openAvatarPopup,
+} from "./components/model/img-profile.js";
 
 // Включение валидации
 enableValidation(validateConfig);
@@ -63,10 +72,16 @@ popupEditProfile.addEventListener("click", () => openEditPopup());
 //Модальное окно добавления карточки
 popupNewCardOpened.addEventListener("click", () => openCreateCard());
 
+//Модальное окно редактирования аватарки
+popupAvatarEdit.addEventListener("click", () => openAvatarPopup());
+
 //Слушатель для изменения профиля
 editForm.addEventListener("submit", handleFormSubmit);
 
 //Слушатель для добавления новой карточки в список
 cardForm.addEventListener("submit", submitNewCard);
+
+//Слушатель для добавления нового аватара
+avatarForm.addEventListener("submit", handleAvatarChange);
 
 //__________________________________________________________________________________________//
