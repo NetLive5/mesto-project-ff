@@ -36,7 +36,6 @@ const handleFormSubmit = (evt) => {
       profileDescription.textContent = userData.about; // Обновляем элементы на странице новыми значениями
 
       closeModalWindow(popupEdit);
-      return getEditProfile(); //Возвращаем новые поля
     })
     .catch((error) => {
       console.error("Patch edit error:", error);

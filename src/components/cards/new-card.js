@@ -1,6 +1,6 @@
 import { createCard, deleteCard } from "./card.js";
 import { closeModalWindow, openModalWindow } from "../model/model.js";
-import { cardList } from "./card.js";
+import { cardList } from "../../index";
 import { openImg } from "./open-card.js";
 import { popupNewCard } from "../model/popap-import.js";
 import { clearValidation } from "../validation/validation.js";
@@ -20,9 +20,9 @@ const openCreateCard = () => {
 const submitNewCard = (evt) => {
   cardButton.textContent = "Сохранение...";
   evt.preventDefault();
-  const Name = newName.value; // Сохраняем новые данные из формы , которые ввели
-  const Url = newUrl.value;
-  postCards({ name: Name, link: Url })
+  const nameInput = newName.value; // Сохраняем новые данные из формы , которые ввели
+  const urlInput = newUrl.value;
+  postCards({ name: nameInput, link: urlInput })
     .then(({ link, name, _id }) => {
       const card = createCard(link, name, deleteCard, openImg, 0, true, _id); // для новой карточки создаем переменную и передаем функцию создания карточки
       cardList.prepend(card); //Добавляем карточку в начало списка

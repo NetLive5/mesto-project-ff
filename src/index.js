@@ -18,7 +18,7 @@ import {
   popupNewCardOpened,
 } from "./components/model/popap-import.js";
 
-import { createCard, addCard, deleteCard } from "./components/cards/card.js";
+import { createCard, deleteCard } from "./components/cards/card.js";
 
 import { getEditProfile } from "./components/fetch/api.js";
 import { getInitialCards } from "./components/fetch/api.js";
@@ -32,6 +32,7 @@ import {
 
 // Включение валидации
 enableValidation(validateConfig);
+export const cardList = document.querySelector(".places__list");
 
 const handleData = ([userData, initialCards]) => {
   // initialCards содержит массив начальных карточек
@@ -51,6 +52,11 @@ const handleData = ([userData, initialCards]) => {
     );
     addCard(cardData);
   });
+};
+
+// Функция добавления карточки
+export const addCard = (item) => {
+  cardList.append(item);
 };
 
 // Ошибка при получении данных

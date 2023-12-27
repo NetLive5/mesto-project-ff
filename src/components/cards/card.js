@@ -1,9 +1,7 @@
 // @todo: Темплейт карточки
 import { removeCard, toggleLike } from "../fetch/api.js";
 
-export const cardList = document.querySelector(".places__list");
 const cardTemplate = document.querySelector("#card-template").content;
-
 // Функция создания карточки
 const createCard = (
   srcCard,
@@ -55,14 +53,9 @@ const createCard = (
   return cardElement;
 };
 
-// Функция добавления карточки
-const addCard = (item) => {
-  cardList.append(item);
-};
-
 // Функция удаления карточки
 const deleteCard = (event, cardId) => {
-  const cardElement = event.target.parentElement;
+  const cardElement = event.target.closest(".places__item");
   // Отправляем на сервер для удаления карточки
   removeCard(cardId)
     .then(() => {
@@ -94,4 +87,4 @@ const like = (cardId, likeButton, likesCounter) => {
     });
 };
 
-export { createCard, addCard, deleteCard, like };
+export { createCard, deleteCard, like };

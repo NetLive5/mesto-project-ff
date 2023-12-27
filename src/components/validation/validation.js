@@ -9,29 +9,39 @@ import {
 } from "./validation-regex"; // Импорт функция с регулярными выражениями
 
 // Функция отображения сообщения об ошибке для конкретного поля ввода
-const showInputError = (formElement, inputElement, errorMessage) => {
+const showInputError = (
+  formElement,
+  inputElement,
+  errorMessage,
+  validationConfig
+) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`); // Создаем константу, предназначенную для отображения ошибок валидации для конкретного поля
-  inputElement.classList.add("popup__input_type_error"); // Добавляем стили ошибки
+  inputElement.classList.add(validationConfig.inputErrorClass); // Добавляем стили ошибки
   errorElement.textContent = errorMessage; // Задаем текст сообщения об ошибке
-  errorElement.classList.add("popup__input-error_active"); // Добавляем стили для активации сообщения об ошибке
+  errorElement.classList.add(validationConfig.errorClass); // Добавляем стили для активации сообщения об ошибке
 };
 
 // Функция скрытия сообщения об ошибке для конкретного поля ввода
-const hideInputError = (formElement, inputElement) => {
+const hideInputError = (formElement, inputElement, validationConfig) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove("popup__input_type_error"); // Удаляем стили ошибки
-  errorElement.classList.remove("popup__input-error_active"); // Удаляем стили для активации сообщения об ошибке
+  inputElement.classList.remove(validationConfig.inputErrorClass); // Удаляем стили ошибки
+  errorElement.classList.remove(validationConfig.errorClass); // Удаляем стили для активации сообщения об ошибке
   errorElement.textContent = ""; // Очищаем текст сообщения об ошибке
 };
 
 // Функция проверки валидности конкретного поля ввода
-const checkInputValidity = (formElement, inputElement) => {
+const checkInputValidity = (formElement, inputElement, validationConfig) => {
   const errorMessage =
     "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы";
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage); // Показываем сообщение об ошибке браузера
+    showInputError(formElement, inputElement, errorMessage, validationConfig); // Показываем сообщение об ошибке браузера
   } else if (inputElement.type === "url" && !isValidURL(inputElement.value)) {
-    showInputError(formElement, inputElement, "Введите корректный URL"); // Показываем сообщение об ошибке для URL
+    showInputError(
+      formElement,
+      inputElement,
+      "Введите корректный URL",
+      validationConfig
+    ); // Показываем сообщение об ошибке для URL
   } else if (
     inputElement.name === "link" &&
     !isValidImageURL(inputElement.value)
@@ -39,15 +49,15 @@ const checkInputValidity = (formElement, inputElement) => {
     showInputError(
       formElement,
       inputElement,
-      "Введите корректный URL изображения"
+      "Введите корректный URL изображения",
+      validationConfig
     ); // Показываем сообщение об ошибке для URL изображения
   } else if (!isValidInputCharacters(inputElement)) {
-    showInputError(formElement, inputElement, errorMessage); // Показываем сообщение об ошибке для недопустимых символов
+    showInputError(formElement, inputElement, errorMessage, validationConfig); // Показываем сообщение об ошибке для недопустимых символов
   } else {
-    hideInputError(formElement, inputElement); // Скрываем сообщение об ошибке, если все в порядке
+    hideInputError(formElement, inputElement, validationConfig); // Скрываем сообщение об ошибке, если все в порядке
   }
 };
-
 // Функция для проверки наличия хотя бы одного невалидного поля
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
@@ -90,7 +100,7 @@ const enableValidation = (validationConfig) => {
 
     inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", function () {
-        checkInputValidity(formElement, inputElement);
+        checkInputValidity(formElement, inputElement, validationConfig);
         toggleButtonState(inputList, buttonElement);
       });
     });
@@ -106,7 +116,7 @@ const clearValidation = (formElement, validationConfig) => {
   );
 
   inputList.forEach((inputElement) => {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, validationConfig);
   });
 
   buttonElement.disabled = true;
