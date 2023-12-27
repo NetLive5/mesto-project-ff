@@ -1,3 +1,3 @@
 # Проектная работа Mesto
 
-https://github.com/NetLive5/mesto-project-ff
+(https://netlive5.github.io/mesto-project-ff/)
