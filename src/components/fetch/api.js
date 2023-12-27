@@ -1,119 +1,89 @@
+const config = {
+  baseUrl: "https://nomoreparties.co/v1/wff-cohort-3",
+  headers: {
+    authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
+    "Content-Type": "application/json",
+  },
+};
+
 export const getInitialCards = () => {
-  return fetch("https://nomoreparties.co/v1/wff-cohort-3/cards  ", {
+  return fetch(`${config.baseUrl}/cards`, {
     method: "GET",
-    headers: {
-      authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((error) => {
-      console.error("Ошибка getInitialCards:", error);
-    });
+    headers: config.headers,
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  });
 };
 
 export const postCards = (newCard) => {
-  return fetch("https://nomoreparties.co/v1/wff-cohort-3/cards", {
+  return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
-    headers: {
-      authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: newCard.name,
       link: newCard.link,
     }),
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json(); // Возвращаем данные о созданной карточке
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((error) => {
-      console.error("Ошибка postCards:", error);
-    });
+  }).then((res) => {
+    if (res.ok) {
+      return res.json(); // Возвращаем данные о созданной карточке
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  });
 };
 
 export const toggleLike = (cardId, isLiked) => {
   const method = isLiked ? "DELETE" : "PUT";
   console.log("Toggle like request:", cardId, method, isLiked);
-  return fetch(
-    `https://nomoreparties.co/v1/wff-cohort-3/cards/likes/${cardId}`,
-    {
-      method,
-      headers: {
-        authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
-      },
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method,
+    headers: config.headers,
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
     }
-  )
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((error) => {
-      console.error("Ошибка toggleLike:", error);
-    });
+  });
 };
 
 export const removeCard = (cardId) => {
-  return fetch(`https://nomoreparties.co/v1/wff-cohort-3/cards/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
-    headers: {
-      authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((error) => {
-      console.error("Ошибка removeCard:", error);
-    });
+    headers: config.headers,
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  });
 };
 
 export const patchEdit = (newProfile) => {
-  return fetch("https://nomoreparties.co/v1/wff-cohort-3/users/me ", {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
-    headers: {
-      authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: newProfile.name,
       about: newProfile.about,
     }),
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((error) => {
-      console.error("Ошибка patchEdi:", error);
-    });
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
 };
 
-//GET
-export const getEditProfile = () => {
-  return fetch("https://nomoreparties.co/v1/wff-cohort-3/users/me ", {
+export const getEditProfile = (updateProfileCallback) => {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: "GET",
-    headers: {
-      authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
-    },
+    headers: config.headers,
   })
     .then((res) => {
       if (res.ok) {
@@ -123,42 +93,23 @@ export const getEditProfile = () => {
     })
     .then((userData) => {
       // Обновляем информацию о пользователе на странице
-      const profileTitle = document.querySelector(".profile__title");
-      const profileDescription = document.querySelector(
-        ".profile__description"
-      );
-      const profileImage = document.querySelector(".profile__image");
-
-      profileTitle.textContent = userData.name;
-      profileDescription.textContent = userData.about;
-      profileImage.src = userData.avatar;
-      profileImage.alt = userData.name;
+      updateProfileCallback(userData);
 
       return userData._id; // Возвращаем _id из промиса
-    })
-    .catch((error) => {
-      console.error("Ошибка GET PROFILE :", error);
     });
 };
 
 export const patchNewAvatar = (newAvatarUrl) => {
-  return fetch("https://nomoreparties.co/v1/wff-cohort-3/users/me/avatar", {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: "PATCH",
-    headers: {
-      authorization: "527ccf5e-48ed-459d-9003-516016edecdb",
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({
       avatar: newAvatarUrl,
     }),
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((error) => {
-      console.error("Ошибка patchNewAvatar:", error);
-    });
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
 };

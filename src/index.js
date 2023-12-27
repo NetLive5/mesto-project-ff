@@ -11,6 +11,7 @@ import {
   handleFormSubmit,
   editForm,
   openEditPopup,
+  updateProfileOnPage,
 } from "./components/model/edit-profile.js";
 
 import {
@@ -64,11 +65,12 @@ const handleError = (error) => {
   console.error("Fetch error:", error);
 };
 
-// Запросы на сервер
-Promise.all([getEditProfile(), getInitialCards()])
+Promise.all([
+  getEditProfile(updateProfileOnPage), // Передаем колбэк
+  getInitialCards(),
+])
   .then(handleData) // Обработка успешного получения данных
   .catch(handleError); // Обработка ошибки
-
 //Модальное окно редактирования профиля
 popupEditProfile.addEventListener("click", () => openEditPopup());
 
