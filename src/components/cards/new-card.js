@@ -1,15 +1,16 @@
-import { createCard, deleteCard, like } from "./card.js";
+import { createCard, deleteCard } from "./card.js";
 import { closeModalWindow, openModalWindow } from "../model/model.js";
 import { cardList } from "./card.js";
 import { openImg } from "./open-card.js";
 import { popupNewCard } from "../model/popap-import.js";
 import { clearValidation } from "../validation/validation.js";
 import { newCardConfig } from "../validation/validation-config.js";
-import { postCards } from "../fetch/apiCreateCard.js";
+import { postCards } from "../fetch/api.js";
 
 const cardForm = document.forms["new-place"];
 const newName = cardForm.elements["place-name"];
 const newUrl = cardForm.elements.link;
+const cardButton = cardForm.elements["new-card-button"];
 
 const openCreateCard = () => {
   clearValidation(popupNewCard, newCardConfig);
@@ -17,6 +18,7 @@ const openCreateCard = () => {
 };
 
 const submitNewCard = (evt) => {
+  cardButton.textContent = "Сохранение...";
   evt.preventDefault();
   const Name = newName.value; // Сохраняем новые данные из формы , которые ввели
   const Url = newUrl.value;
@@ -30,6 +32,9 @@ const submitNewCard = (evt) => {
     })
     .catch((error) => {
       console.error("Error posting new card:", error);
+    })
+    .finally(() => {
+      cardButton.textContent = "Сохранить";
     });
 };
 

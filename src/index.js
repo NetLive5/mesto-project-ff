@@ -20,13 +20,10 @@ import {
 
 import { createCard, addCard, deleteCard } from "./components/cards/card.js";
 
-import { getEditProfile } from "./components/fetch/apiEditProfile.js";
-import { getInitialCards } from "./components/fetch/apiCreateCard.js";
+import { getEditProfile } from "./components/fetch/api.js";
+import { getInitialCards } from "./components/fetch/api.js";
 
-import {
-  popupAvatar,
-  popupAvatarEdit,
-} from "./components/model/popap-import.js";
+import { popupAvatarEdit } from "./components/model/popap-import.js";
 import {
   handleAvatarChange,
   avatarForm,

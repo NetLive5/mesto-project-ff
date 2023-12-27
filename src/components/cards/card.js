@@ -1,5 +1,5 @@
 // @todo: Темплейт карточки
-import { removeCard, toggleLike } from "../fetch/apiCreateCard";
+import { removeCard, toggleLike } from "../fetch/api.js";
 
 export const cardList = document.querySelector(".places__list");
 const cardTemplate = document.querySelector("#card-template").content;
