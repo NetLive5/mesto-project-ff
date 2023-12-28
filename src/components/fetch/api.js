@@ -6,17 +6,22 @@ const config = {
   },
 };
 
+const checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return Promise.reject({
+      status: res.status,
+      message: `Ошибка: ${res.status}`,
+    });
+  }
+};
+
 export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     method: "GET",
     headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  });
+  }).then(checkResponse);
 };
 
 export const postCards = (newCard) => {
@@ -27,13 +32,7 @@ export const postCards = (newCard) => {
       name: newCard.name,
       link: newCard.link,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json(); // Возвращаем данные о созданной карточке
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  });
+  }).then(checkResponse);
 };
 
 export const toggleLike = (cardId, isLiked) => {
@@ -42,26 +41,14 @@ export const toggleLike = (cardId, isLiked) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method,
     headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  });
+  }).then(checkResponse);
 };
 
 export const removeCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  });
+  }).then(checkResponse);
 };
 
 export const patchEdit = (newProfile) => {
@@ -72,12 +59,7 @@ export const patchEdit = (newProfile) => {
       name: newProfile.name,
       about: newProfile.about,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(checkResponse);
 };
 
 export const getEditProfile = (updateProfileCallback) => {
@@ -85,16 +67,10 @@ export const getEditProfile = (updateProfileCallback) => {
     method: "GET",
     headers: config.headers,
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponse)
     .then((userData) => {
       // Обновляем информацию о пользователе на странице
       updateProfileCallback(userData);
-
       return userData._id; // Возвращаем _id из промиса
     });
 };
@@ -106,10 +82,5 @@ export const patchNewAvatar = (newAvatarUrl) => {
     body: JSON.stringify({
       avatar: newAvatarUrl,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(checkResponse);
 };
