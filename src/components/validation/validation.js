@@ -68,13 +68,13 @@ const hasInvalidInput = (inputList) => {
 };
 
 // Функция переключения состояния кнопки в зависимости от валидности полей ввода
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement, validationConfig) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.disabled = true; // Если хотя бы одно поле невалидно, делаем кнопку неактивной
-    buttonElement.classList.add("popup__button_disabled");
+    buttonElement.classList.add(validationConfig.inactiveButtonClass);
   } else {
     buttonElement.disabled = false; // Если все поля валидны, делаем кнопку активной
-    buttonElement.classList.remove("popup__button_disabled");
+    buttonElement.classList.remove(validationConfig.inactiveButtonClass);
   }
 };
 
@@ -96,7 +96,7 @@ const enableValidation = (validationConfig) => {
       validationConfig.submitButtonSelector
     );
 
-    toggleButtonState(inputList, buttonElement);
+    toggleButtonState(inputList, buttonElement, validationConfig);
 
     inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", function () {

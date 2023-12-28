@@ -62,17 +62,11 @@ export const patchEdit = (newProfile) => {
   }).then(checkResponse);
 };
 
-export const getEditProfile = (updateProfileCallback) => {
+export const getEditProfile = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "GET",
     headers: config.headers,
-  })
-    .then(checkResponse)
-    .then((userData) => {
-      // Обновляем информацию о пользователе на странице
-      updateProfileCallback(userData);
-      return userData._id; // Возвращаем _id из промиса
-    });
+  }).then(checkResponse);
 };
 
 export const patchNewAvatar = (newAvatarUrl) => {

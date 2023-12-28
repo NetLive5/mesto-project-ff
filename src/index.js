@@ -39,9 +39,10 @@ const handleData = ([userData, initialCards]) => {
   // initialCards содержит массив начальных карточек
   // userData содержит информацию о пользователе
 
+  updateProfileOnPage(userData); //Функция обновления данных
   // Вывести карточки на страницу
   initialCards.forEach(({ link, name, likes, _id, owner }) => {
-    const isOwnCard = owner._id == userData;
+    const isOwnCard = owner._id == userData._id;
     const cardData = createCard(
       link,
       name,
@@ -66,7 +67,7 @@ const handleError = (error) => {
 };
 
 Promise.all([
-  getEditProfile(updateProfileOnPage), // Передаем колбэк
+  getEditProfile(), // Передаем колбэк
   getInitialCards(),
 ])
   .then(handleData) // Обработка успешного получения данных

@@ -1,4 +1,3 @@
-// Находим форму
 import { closeModalWindow, openModalWindow } from "./model";
 import { popupEdit } from "../model/popap-import";
 import { clearValidation } from "../validation/validation.js";
