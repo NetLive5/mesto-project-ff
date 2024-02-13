@@ -37,7 +37,7 @@
 .popup__caption{color:#fff;font-size:12px;left:0;line-height:15px;margin:0;position:absolute;top:calc(100% + 10px)}
 .popup__image{display:block;max-height:100%;max-width:100%;-o-object-fit:cover;object-fit:cover}
 .popup{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:none;font-family:Inter,Arial,sans-serif;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:10}
-.popup_is-animated{display:flex;opacity:1;pointer-events:none;transition:visibility 0s .6s,opacity .6s;-webkit-user-select:none;-moz-user-select:none;user-select:none;visibility:visible}
+.popup_is-animated{display:flex;opacity:0;pointer-events:none;transition:visibility 0s .6s,opacity .6s;-webkit-user-select:none;-moz-user-select:none;user-select:none;visibility:hidden}
 .popup_is-opened{display:flex;opacity:1;pointer-events:all;transition:visibility 0s,opacity .6s;visibility:visible}
 .popup__button_disabled{background-color:#f6f6f6;border:1px solid #000;color:#d4cfcf;cursor:not-allowed}.popup__input_type_error{border-bottom-color:red}.popup__input-error_active{opacity:1}.popup__input-error{color:red;font-family:Inter;font-size:14px;font-style:normal;font-weight:400;line-height:normal}
 
